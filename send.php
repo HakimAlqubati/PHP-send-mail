@@ -10,15 +10,17 @@ require __DIR__ . '/vendor/autoload.php';
 // ===== إعدادات بسيطة قابلة للتعديل =====
 $MAIL_HOST     = 'smtp.gmail.com';
 $MAIL_PORT     = 587;
-$MAIL_USERNAME = 'your@gmail.com';        // بريد الجيميل المُرسل
-$MAIL_PASSWORD = 'your-app-password';     // Gmail App Password (وليس كلمة المرور العادية)
-$MAIL_FROM     = 'your@gmail.com';
-$MAIL_FROMNAME = 'Website Form';
+$MAIL_USERNAME = 'mohamedsadeq577@gmail.com';        // بريد الجيميل المُرسل
+$MAIL_PASSWORD = 'fgkwkypbcolixfqw';     // Gmail App Password (وليس كلمة المرور العادية)
+$MAIL_FROM     = 'mohamedsadeq577@gmail.com';
+$MAIL_FROMNAME = 'Vortex 4G';
+
 
 $recipients = [
     // استخدم BCC لحماية الخصوصية (لن يرى المستلمون بعضهم)
-    'hakimahmed123321@gmail.com',
-    'example1@gmail.com',
+    'hamohamo444m@gmail.com',
+    'alabsi0539@gmail.com',
+    'altaizimohamed@gmail.com',
     'example2@hotmail.com',
     'example3@yahoo.com',
 ];
@@ -115,6 +117,8 @@ try {
     $mail->Password   = $MAIL_PASSWORD;
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port       = $MAIL_PORT;
+    $mail->CharSet  = 'UTF-8';
+    $mail->Encoding = 'base64';
 
     // المرسل
     $mail->setFrom($MAIL_FROM, $MAIL_FROMNAME);
@@ -132,26 +136,38 @@ try {
 
     // المحتوى
     $mail->isHTML(true);
-    $mail->Subject = 'New Contact Message from ' . $name;
+    $mail->Subject = 'Vortex 4G - طلب جديد من ' . $name;
+
+//    $mail->Body = '
+//        <div style="font-family:Arial,Helvetica,sans-serif; line-height:1.6; color:#222;">
+//            <h2 style="margin:0 0 10px;">New Contact Message</h2>
+//            <hr style="border:none; border-top:1px solid #eee; margin:10px 0;">
+//            <p><strong>Name:</strong> ' . $e($name) . '</p>
+//            <p><strong>Email:</strong> ' . $e($email) . '</p>
+//            <p><strong>Message:</strong><br>' . nl2br($e($message)) . '</p>
+//            <hr style="border:none; border-top:1px solid #eee; margin:10px 0;">
+//            <p style="font-size:12px;color:#666;">This email was sent from your website contact form.</p>
+//        </div>
+//    ';
 
     $mail->Body = '
-        <div style="font-family:Arial,Helvetica,sans-serif; line-height:1.6; color:#222;">
-            <h2 style="margin:0 0 10px;">New Contact Message</h2>
-            <hr style="border:none; border-top:1px solid #eee; margin:10px 0;">
-            <p><strong>Name:</strong> ' . $e($name) . '</p>
-            <p><strong>Email:</strong> ' . $e($email) . '</p>
-            <p><strong>Message:</strong><br>' . nl2br($e($message)) . '</p>
-            <hr style="border:none; border-top:1px solid #eee; margin:10px 0;">
-            <p style="font-size:12px;color:#666;">This email was sent from your website contact form.</p>
-        </div>
-    ';
+  <div dir="rtl" lang="ar" style="
+      direction: rtl;
+      text-align: right;
+      font-family: Tahoma, Arial, Helvetica, sans-serif;
+      line-height: 1.8; color:#222;">
+    <h2 style="margin:0 0 10px;">طلب جديد</h2>
+    <hr style="border:none; border-top:1px solid #eee; margin:10px 0;">
+    <div style="white-space:pre-wrap; line-height:1.4;">' . $e($message) . '</div>
+    <hr style="border:none; border-top:1px solid #eee; margin:10px 0;">
+    <p style="font-size:12px;color:#666;">تم إرسال هذا البريد من نموذج التواصل في موقع Vortex 4G.</p>
+  </div>
+';
 
     $mail->AltBody =
-        "New Contact Message\n" .
+        "طلب جديد\n" .
         "-------------------\n" .
-        "Name: {$name}\n" .
-        "Email: {$email}\n\n" .
-        "Message:\n{$message}\n";
+        $message . "\n";
 
     $mail->send();
 
